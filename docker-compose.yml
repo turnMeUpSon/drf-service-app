@@ -50,6 +50,27 @@ services:
     env_file:
       - ./.env
   
+  worker2:
+    build: 
+      context: .
+    hostname: worker2
+    entrypoint: celery
+    command: -A celery_app.app worker --loglevel=info
+    volumes:
+      - ./backend:/backend
+    links:
+      - redis
+    depends_on:
+      - redis
+      - database
+    environment:
+          DB_HOST: database
+          DB_NAME: "${POSTGRES_DB}"
+          DB_USER: "${POSTGRES_USER}"
+          DB_PASS: "${POSTGRES_PASSWORD}"
+    env_file:
+      - ./.env
+
   flower:
     build: 
       context: .
