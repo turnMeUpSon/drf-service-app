@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'clients',
     'services',
+    'cachalot',
 ]
 
 MIDDLEWARE = [
